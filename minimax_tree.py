@@ -44,6 +44,7 @@ def minimax(node,player):
             if child.value > maxv:
                 maxv = child.value
         node.value = maxv
+        return maxv
 
     else:
         minv = PINF
@@ -52,3 +53,4 @@ def minimax(node,player):
             if child.value < minv:
                 minv = child.value
         node.value = minv
+        return minv
