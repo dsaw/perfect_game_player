@@ -1,4 +1,5 @@
 import minimax_tree
+import copy
 
 # Making use of minimax tree algorithm to solve board states of Tic Tac Toe
 
@@ -35,6 +36,10 @@ class TicTacToeNode(minimax_tree.Node):
         self.value = None
 
     def if_leaf(self):
+        '''
+        checks if node is either a win, loss or draw.
+        :return: boolean
+        '''
 
         if win_for_player(self.board,'x') or win_for_player(self.board,'o'):
             return True
@@ -43,4 +48,29 @@ class TicTacToeNode(minimax_tree.Node):
             return False
 
         return True
+
+
+    def generate_moves(self):
+        '''
+        Generates list of valid possible moves
+        :return: list
+        '''
+        curboard = copy.copy(self.board)
+
+        next_state = []
+        if self.player:
+            for r in range(3):
+                for c in range(3):
+                    if curboard[r][c] == '.':
+                        newnode = TicTacToeNode(copy.copy(self.board))
+                        next_state.append(newnode)
+                        newnode.board[r][c] = 'x'         # not following encapsulation
+        else:
+            for r in range(3):
+                for c in range(3):
+                    if curboard[r][c] == '.':
+                        newnode = TicTacToeNode(copy.copy(self.board))
+                        next_state.append(newnode)
+                        newnode.board[r][c] = 'o'         # not following encapsulation
+        return next_state
 

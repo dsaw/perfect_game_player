@@ -10,7 +10,6 @@ class TestMinimaxDS(unittest.TestCase):
     def tearDown(self):
         pass
 
-
     def test_eval_node(self):
         '''
 
