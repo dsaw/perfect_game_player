@@ -41,10 +41,10 @@ class TicTacToeNode(minimax_tree.Node):
         :return: boolean
         '''
 
-        if win_for_player(self.board,'x') or win_for_player(self.board,'o'):
+        if win_for_player(self.state,'x') or win_for_player(self.state,'o'):
             return True
 
-        if any('.' in row for row in self.board):
+        if any('.' in row for row in self.state):
             return False
 
         return True
@@ -55,22 +55,22 @@ class TicTacToeNode(minimax_tree.Node):
         Generates list of valid possible moves
         :return: list
         '''
-        curboard = copy.copy(self.board)
+        curboard = copy.copy(self.state)
 
         next_state = []
         if self.player:
             for r in range(3):
                 for c in range(3):
                     if curboard[r][c] == '.':
-                        newnode = TicTacToeNode(copy.copy(self.board))
+                        newnode = TicTacToeNode(copy.copy(self.state))
+                        newnode.state[r][c] = 'x'         # not following encapsulation
                         next_state.append(newnode)
-                        newnode.board[r][c] = 'x'         # not following encapsulation
         else:
             for r in range(3):
                 for c in range(3):
                     if curboard[r][c] == '.':
-                        newnode = TicTacToeNode(copy.copy(self.board))
+                        newnode = TicTacToeNode(copy.copy(self.state))
+                        newnode.state[r][c] = 'o'         # not following encapsulation
                         next_state.append(newnode)
-                        newnode.board[r][c] = 'o'         # not following encapsulation
         return next_state
 
