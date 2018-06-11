@@ -62,15 +62,25 @@ class TicTacToeNode(minimax_tree.Node):
             for r in range(3):
                 for c in range(3):
                     if curboard[r][c] == '.':
-                        newnode = TicTacToeNode(copy.copy(self.state))
+                        newnode = TicTacToeNode(copy.deepcopy(self.state))
                         newnode.state[r][c] = 'x'         # not following encapsulation
                         next_state.append(newnode)
         else:
             for r in range(3):
                 for c in range(3):
                     if curboard[r][c] == '.':
-                        newnode = TicTacToeNode(copy.copy(self.state))
+                        newnode = TicTacToeNode(copy.deepcopy(self.state))
                         newnode.state[r][c] = 'o'         # not following encapsulation
                         next_state.append(newnode)
         return next_state
 
+    def evaluate(self):
+        ''' Set value of board '''
+        if win_for_player(self.state, 'x'):
+            self.value = minimax_tree.PINF
+        elif win_for_player(self.state,'o'):
+            self.value = minimax_tree.NINF
+        elif not any('.' in row for row in self.state):
+            self.value = 0
+
+        return self.value
