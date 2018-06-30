@@ -1,12 +1,13 @@
 import minimax_tree
 import copy
 
-# Making use of minimax tree algorithm to solve board states of Tic Tac Toe
+# Making use of Minimax tree algorithm to solve board states of Tic Tac Toe
+
 
 def win_for_player(board,player_token):
 
     for r in range(3):
-        if board[r][0]==player_token and board[r][1]==player_token and board[r][2]==player_token:
+        if board[r][0]== player_token and board[r][1]== player_token and board[r][2]== player_token:
             return True
         if board[0][r] == player_token and board[1][r] == player_token and board[2][r] == player_token:
             return True
@@ -49,16 +50,16 @@ class TicTacToeNode(minimax_tree.Node):
 
         return True
 
-
-    def generate_moves(self):
+    def generate_moves(self,player):
         '''
         Generates list of valid possible moves
+        :param player: Boolean. x or o
         :return: list
         '''
         curboard = copy.copy(self.state)
 
         next_state = []
-        if self.player:
+        if player:
             for r in range(3):
                 for c in range(3):
                     if curboard[r][c] == '.':
@@ -75,7 +76,8 @@ class TicTacToeNode(minimax_tree.Node):
         return next_state
 
     def evaluate(self):
-        ''' Set value of board '''
+        ''' Set value of board
+        '''
         if win_for_player(self.state, 'x'):
             self.value = minimax_tree.PINF
         elif win_for_player(self.state,'o'):

@@ -1,11 +1,9 @@
 
 import logging
 
-logger  = logging.getLogger()
+logger = logging.getLogger()
 
 # root level logger
-logger.basicConfig(filename="tictac.log")
-
 
 # Straightforward minimax tree algorithm
 
@@ -37,26 +35,27 @@ def minimax(node,player):
     Main minimax function that obtains the best move to take
     :return:
     '''
+
     if node.if_leaf():
         return node.evaluate()
 
     if player:
         maxv = NINF
-        for child in node.generate_moves():
+        for child in node.generate_moves(player):
             child.value = minimax(child,not player)
             if child.value > maxv:
                 maxv = child.value
 
         node.value = maxv
-        logger.debug("{} == {}".format(node.state, node.value))
+        logging.debug("{} == {}".format(node.state, node.value))
         return maxv
 
     else:
         minv = PINF
-        for child in node.generate_moves():
+        for child in node.generate_moves(player):
             child.value = minimax(child,not player)
             if child.value < minv:
                 minv = child.value
         node.value = minv
-        logger.debug("{} == {}".format(node.state, node.value))
+        logging.debug("{} == {}".format(node.state, node.value))
         return minv
