@@ -1,7 +1,7 @@
 import unittest
 import logging
 import logging.config
-
+import time
 import minimax_tree
 import tictactoe_solver
 
@@ -29,9 +29,15 @@ class TestTicTacToe(unittest.TestCase):
     def test_minimax(self):
         '''
         Tests minimax algo on root board of xo
+        It will output time elapsed.
         :return:
         '''
+        start = time.time()
+
         val = minimax_tree.minimax(self.node,True)
+
+        end = time.time()
+        print('Time elapsed : {}'.format(end-start))
         self.assertEqual(val,0)
         print(val)
 
@@ -41,6 +47,8 @@ class TestTicTacToe(unittest.TestCase):
         '''
 
         self.assertIsNone(self.node.evaluate())
+
+
 
 if __name__=='__main__':
     unittest.main(verbosity=2)
