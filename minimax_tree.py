@@ -59,3 +59,38 @@ def minimax(node,player):
         node.value = minv
         logging.debug("{} == {}".format(node.state, node.value))
         return minv
+
+
+def depth_limited_minimax(node,depth,player):
+    '''
+    Minimax algorithm that returns after a particular depth is reached
+    :param node:
+    :param depth:
+    :param player:
+    :return:
+    '''
+    if node.if_leaf() or depth==0:
+        return node.evaluate()
+
+    if player:
+        maxv = NINF
+        for child in node.generate_moves(player):
+            child.value = depth_limited_minimax(child,depth-1,not player)
+            if child.value > maxv:
+                maxv = child.value
+
+        node.value = maxv
+        logging.debug("{} == {}".format(node.state, node.value))
+        return maxv
+
+    else:
+        minv = PINF
+        for child in node.generate_moves(player):
+            child.value = depth_limited_minimax(child,depth-1,not player)
+            if child.value < minv:
+                minv = child.value
+        node.value = minv
+        logging.debug("{} == {}".format(node.state, node.value))
+        return minv
+
+
