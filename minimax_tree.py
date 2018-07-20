@@ -29,6 +29,12 @@ class Node:
     def evaluate(self):
         return self.value
 
+    def __str__(self):
+        str = ''
+        for r in range(len(self.state)):
+            str += '|'.join(self.state[r]) + '\n'
+        return str
+
 
 def minimax(node,player):
     '''
@@ -80,7 +86,7 @@ def depth_limited_minimax(node,depth,player):
                 maxv = child.value
 
         node.value = maxv
-        logging.debug("{} == {}".format(node.state, node.value))
+        logging.debug("{} == {}".format(node, node.value))
         return maxv
 
     else:
@@ -90,7 +96,7 @@ def depth_limited_minimax(node,depth,player):
             if child.value < minv:
                 minv = child.value
         node.value = minv
-        logging.debug("{} == {}".format(node.state, node.value))
+        logging.debug("{} == {}".format(node, node.value))
         return minv
 
 

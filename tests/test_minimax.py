@@ -2,8 +2,8 @@ import unittest
 
 import minimax_tree
 
-class TestMinimaxDS(unittest.TestCase):
 
+class TestMinimaxDS(unittest.TestCase):
     def setUp(self):
         self.node = minimax_tree.Node()
 
@@ -17,8 +17,12 @@ class TestMinimaxDS(unittest.TestCase):
         '''
         self.assertIsNone(self.node.evaluate())
 
+    def test_node_representation(self):
+        '''
+        '''
 
+        self.node.state = [['o','x'],['x','x']]
+        self.assertEqual(str(self.node),'o|x\nx|x\n')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-    
