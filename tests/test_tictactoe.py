@@ -13,7 +13,9 @@ class TestTicTacToe(unittest.TestCase):
         logging.basicConfig(filename="tictac.log", level=logging.DEBUG)
 
     def tearDown(self):
-        pass
+        # truncates log file
+        logfile = open("tictac.log")
+        logfile.close()
 
     def test_next_moves(self):
         '''
@@ -49,8 +51,8 @@ class TestTicTacToe(unittest.TestCase):
         board1 = [['o','x',' .'],['x','o','x'],['.','.','.']]
         board2 = [['x','.',' .'],['.','o','o'],['x','.','x']]
 
-        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board1,True),-16)
-        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board2,True),16)
+        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board1,True),-16, delta=1)
+        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board2,True),16,delta=1)
 
 
     def test_minimax_depth_limited(self):
@@ -60,7 +62,7 @@ class TestTicTacToe(unittest.TestCase):
         '''
         start = time.time()
 
-        val = minimax_tree.depth_limited_minimax(self.node, 3, True)
+        val = minimax_tree.depth_limited_minimax(self.node, 4, True)
 
         end = time.time()
         logging.info('Minimax depth {} \tTime elapsed: {}'.format(3, end - start))
@@ -72,7 +74,7 @@ class TestTicTacToe(unittest.TestCase):
         Test if node value is None as it is not leaf
         '''
 
-        self.assertIsNone(self.node.evaluate())
+        self.assertEqual(self.node.evaluate(),0)
 
 
 if __name__ == '__main__':

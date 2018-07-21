@@ -19,7 +19,7 @@ class Node:
         self.state = None
         self.value = None
         self.player = True
-
+        self.best_move = None
     def if_leaf(self):
         return True
 
@@ -80,10 +80,12 @@ def depth_limited_minimax(node,depth,player):
 
     if player:
         maxv = NINF
-        for child in node.generate_moves(player):
+        possible_moves = node.generate_moves(player)
+        for child in possible_moves:
             child.value = depth_limited_minimax(child,depth-1,not player)
             if child.value > maxv:
                 maxv = child.value
+                node.best_move = child.state
 
         node.value = maxv
         logging.debug("{} == {}".format(node, node.value))
@@ -91,10 +93,13 @@ def depth_limited_minimax(node,depth,player):
 
     else:
         minv = PINF
-        for child in node.generate_moves(player):
+        possible_moves = node.generate_moves(player)
+        for child in possible_moves:
             child.value = depth_limited_minimax(child,depth-1,not player)
             if child.value < minv:
                 minv = child.value
+                node.best_move = child.state
+
         node.value = minv
         logging.debug("{} == {}".format(node, node.value))
         return minv

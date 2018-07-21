@@ -7,8 +7,8 @@ import copy
 def compute_heuristic(board,player_token):
     '''
     A heuristic that computes score of board states which are not leaves.
-    :param board:
-    :param player_token:
+    :param board: 2d list
+    :param player_token: bool
     :return:
     '''
 
@@ -95,6 +95,7 @@ class TicTacToeNode(minimax_tree.Node):
         self.state = board
         self.player = True
         self.value = None
+        self.best_move = None
 
     def if_leaf(self):
         '''
