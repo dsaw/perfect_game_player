@@ -4,7 +4,65 @@ import copy
 # Making use of Minimax tree algorithm to solve board states of Tic Tac Toe
 
 
-def compute_heuristic(board,player_token):
+def compute_position_heuristic(board,player_token):
+    '''
+
+    :param board:
+    :param player_token:
+    :return:
+    '''
+
+    xo_diff = 0
+
+    if board[0][0]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[0][2]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[2][0]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[2][2]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[0][1]=='x':
+        xo_diff+=1
+    else:
+        xo_diff-=1
+
+    if board[2][1]=='x':
+        xo_diff+=1
+    else:
+        xo_diff-=1
+
+    if board[1][0]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[1][2]=='x':
+        xo_diff+=3
+    else:
+        xo_diff-=3
+
+    if board[1][1]=='x':
+        xo_diff+=5
+    else:
+        xo_diff-=5
+
+    return xo_diff/10 * 100
+
+
+def compute_simple_heuristic(board,player_token):
     '''
     A heuristic that computes score of board states which are not leaves.
     :param board: 2d list
@@ -87,6 +145,8 @@ class TicTacToeNode(minimax_tree.Node):
     It represents one board position with the heuristic value for the given players move
     '''
 
+    heuristic = compute_position_heuristic
+
     def __init__(self,board):
         '''
 
@@ -96,6 +156,7 @@ class TicTacToeNode(minimax_tree.Node):
         self.player = True
         self.value = None
         self.best_move = None
+
 
     def if_leaf(self):
         '''
@@ -138,6 +199,7 @@ class TicTacToeNode(minimax_tree.Node):
 
     def evaluate(self):
         ''' Set value of board. If its not a win, loss or a draw then heuristic is evaluated.
+
         '''
         if win_for_player(self.state, 'x'):
             self.value = minimax_tree.PINF
@@ -146,7 +208,7 @@ class TicTacToeNode(minimax_tree.Node):
         elif not any('.' in row for row in self.state):
             self.value = 0
         else:
-            self.value = compute_heuristic(self.state,self.player)
+            self.value = TicTacToeNode.heuristic(self.state,self.player)
 
         # XO heuristic
         return self.value
