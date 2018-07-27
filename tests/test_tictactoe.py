@@ -7,14 +7,34 @@ import tictactoe_solver
 
 
 class TestTicTacToe(unittest.TestCase):
+
+    DEPTH = 5
     def setUp(self):
         root_board = [['.'] * 3 for _ in range(3)]
         self.node = tictactoe_solver.TicTacToeNode(root_board)
-        logging.basicConfig(filename="tictac.log", level=logging.DEBUG)
+
+        logger = logging.getLogger("minimax")
+        logger.setLevel(logging.DEBUG)
+        debug_filehandler = logging.FileHandler("tictac.log",mode="w")
+        info_filehandler = logging.FileHandler("tictac_metrics.log", mode="w")
+        info_filehandler.setLevel(logging.INFO)
+        formatter = logging.Formatter(r"%(name)s: \n %(levelname)s: \n %(msg)s")
+
+        debug_filehandler.setFormatter(formatter)
+        info_filehandler.setFormatter(formatter)
+        logger.addHandler(info_filehandler)
+        logger.addHandler(debug_filehandler)
+
+
 
     def tearDown(self):
         # truncates log file
-        logfile = open("tictac.log")
+
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
+        logfile = open("tictac.log","w+")
         logfile.close()
 
     def test_next_moves(self):
@@ -39,7 +59,7 @@ class TestTicTacToe(unittest.TestCase):
 
         end = time.time()
         print('Time elapsed : {}'.format(end - start))
-        self.assertEqual(val, 0)
+        self.assertEqual(val, 0,msg="Result is not a draw")
         print(val)
 
 
@@ -51,8 +71,8 @@ class TestTicTacToe(unittest.TestCase):
         board1 = [['o','x',' .'],['x','o','x'],['.','.','.']]
         board2 = [['x','.',' .'],['.','o','o'],['x','.','x']]
 
-        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board1,True),-16, delta=1)
-        self.assertAlmostEqual(tictactoe_solver.compute_heuristic(board2,True),16,delta=1)
+        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board1,True),-16, delta=1)
+        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board2,True),16,delta=1)
 
 
     def test_minimax_depth_limited(self):
@@ -62,11 +82,11 @@ class TestTicTacToe(unittest.TestCase):
         '''
         start = time.time()
 
-        val = minimax_tree.depth_limited_minimax(self.node, 4, True)
+        val = minimax_tree.depth_limited_minimax(self.node, self.DEPTH, True)
 
         end = time.time()
-        logging.info('Minimax depth {} \tTime elapsed: {}'.format(3, end - start))
-        self.assertEqual(val, 0)
+        logging.info('Minimax depth {} \tTime elapsed: {}'.format(self.DEPTH, end - start))
+        self.assertEqual(val, 0,msg="Result is not a draw")
         print(val)
 
     def test_evaluate(self):

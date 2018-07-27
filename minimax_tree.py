@@ -1,7 +1,7 @@
 
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger("minimax")
 
 # root level logger
 
@@ -53,7 +53,7 @@ def minimax(node,player):
                 maxv = child.value
 
         node.value = maxv
-        logging.debug("{} == {}".format(node.state, node.value))
+        logger.debug("{} == {}".format(node.state, node.value))
         return maxv
 
     else:
@@ -63,7 +63,7 @@ def minimax(node,player):
             if child.value < minv:
                 minv = child.value
         node.value = minv
-        logging.debug("{} == {}".format(node.state, node.value))
+        logger.debug("{} == {}".format(node.state, node.value))
         return minv
 
 
@@ -88,7 +88,7 @@ def depth_limited_minimax(node,depth,player):
                 node.best_move = child.state
 
         node.value = maxv
-        logging.debug("{} == {}".format(node, node.value))
+        logger.debug("{} == {}".format(node, node.value))
         return maxv
 
     else:
@@ -101,7 +101,7 @@ def depth_limited_minimax(node,depth,player):
                 node.best_move = child.state
 
         node.value = minv
-        logging.debug("{} == {}".format(node, node.value))
+        logger.debug("{} == {}".format(node, node.value))
         return minv
 
 
