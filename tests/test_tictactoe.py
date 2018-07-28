@@ -8,7 +8,7 @@ import tictactoe_solver
 
 class TestTicTacToe(unittest.TestCase):
 
-    DEPTH = 5
+    DEPTH = 6
     def setUp(self):
         root_board = [['.'] * 3 for _ in range(3)]
         self.node = tictactoe_solver.TicTacToeNode(root_board)
@@ -16,7 +16,7 @@ class TestTicTacToe(unittest.TestCase):
         self.logger = logging.getLogger("minimax")
         self.logger.setLevel(logging.DEBUG)
         debug_filehandler = logging.FileHandler("tictac.log",mode="w")
-        info_filehandler = logging.FileHandler("tictac_metrics.log", mode="w")
+        info_filehandler = logging.FileHandler("tictac_metrics.log", mode="a")
         info_filehandler.setLevel(logging.INFO)
         formatter = logging.Formatter(r"%(name)s: \n %(levelname)s: \n %(msg)s")
 

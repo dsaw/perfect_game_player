@@ -24,5 +24,19 @@ class TestMinimaxDS(unittest.TestCase):
         self.node.state = [['o','x'],['x','x']]
         self.assertEqual(str(self.node),'o|x\nx|x\n')
 
+    def test_should_return_tuple_of_next_move(self):
+        '''
+        Minimax should return tuple of (move,val)
+        :return:
+        '''
+        self.node.state = [['o','x'],['.','.']]
+
+        return_args = minimax_tree.minimax(self.node,True)
+
+        self.assertIsInstance(return_args,tuple)
+        self.assertTupleEqual(return_args,([],None))
+
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
