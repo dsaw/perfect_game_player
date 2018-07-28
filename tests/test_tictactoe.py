@@ -13,8 +13,8 @@ class TestTicTacToe(unittest.TestCase):
         root_board = [['.'] * 3 for _ in range(3)]
         self.node = tictactoe_solver.TicTacToeNode(root_board)
 
-        logger = logging.getLogger("minimax")
-        logger.setLevel(logging.DEBUG)
+        self.logger = logging.getLogger("minimax")
+        self.logger.setLevel(logging.DEBUG)
         debug_filehandler = logging.FileHandler("tictac.log",mode="w")
         info_filehandler = logging.FileHandler("tictac_metrics.log", mode="w")
         info_filehandler.setLevel(logging.INFO)
@@ -22,8 +22,8 @@ class TestTicTacToe(unittest.TestCase):
 
         debug_filehandler.setFormatter(formatter)
         info_filehandler.setFormatter(formatter)
-        logger.addHandler(info_filehandler)
-        logger.addHandler(debug_filehandler)
+        self.logger.addHandler(info_filehandler)
+        self.logger.addHandler(debug_filehandler)
 
 
 
@@ -85,7 +85,7 @@ class TestTicTacToe(unittest.TestCase):
         val = minimax_tree.depth_limited_minimax(self.node, self.DEPTH, True)
 
         end = time.time()
-        logging.info('Minimax depth {} \tTime elapsed: {}'.format(self.DEPTH, end - start))
+        self.logger.info('Minimax depth {} \tTime elapsed: {}'.format(self.DEPTH, end - start))
         self.assertEqual(val, 0,msg="Result is not a draw")
         print(val)
 
