@@ -2,9 +2,6 @@
 import logging
 
 logger = logging.getLogger("minimax")
-
-# root level logger
-
 # Straightforward minimax tree algorithm
 
 PINF  = 100
@@ -50,7 +47,7 @@ def minimax(node,player):
         maxv = NINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = minimax(child,not player)
+            (_,child.value) = minimax(child,not player)
             if child.value > maxv:
                 maxv = child.value
                 node.best_move = child.state
@@ -64,7 +61,7 @@ def minimax(node,player):
         minv = PINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = minimax(child,not player)
+            (_, child.value) = minimax(child,not player)
             if child.value < minv:
                 minv = child.value
                 node.best_move = child.state
@@ -112,3 +109,4 @@ def depth_limited_minimax(node,depth,player):
         return minv
 
 
+# TODO: alpha beta pruning of minimax

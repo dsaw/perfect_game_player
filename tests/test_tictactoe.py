@@ -9,6 +9,7 @@ import tictactoe_solver
 class TestTicTacToe(unittest.TestCase):
 
     DEPTH = 6
+
     def setUp(self):
         root_board = [['.'] * 3 for _ in range(3)]
         self.node = tictactoe_solver.TicTacToeNode(root_board)
@@ -25,11 +26,8 @@ class TestTicTacToe(unittest.TestCase):
         self.logger.addHandler(info_filehandler)
         self.logger.addHandler(debug_filehandler)
 
-
-
     def tearDown(self):
         # truncates log file
-
         pass
 
     @classmethod
@@ -55,13 +53,12 @@ class TestTicTacToe(unittest.TestCase):
         '''
         start = time.time()
 
-        val = minimax_tree.minimax(self.node, True)
+        (_,final_val) = minimax_tree.minimax(self.node, True)
 
         end = time.time()
         print('Time elapsed : {}'.format(end - start))
-        self.assertEqual(val, 0,msg="Result is not a draw")
-        print(val)
-
+        self.assertEqual(final_val, 0,msg="Result is not a draw")
+        print(final_val)
 
     def test_compute_heuristic(self):
         '''
@@ -73,7 +70,6 @@ class TestTicTacToe(unittest.TestCase):
 
         self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board1,True),-16, delta=1)
         self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board2,True),16,delta=1)
-
 
     def test_minimax_depth_limited(self):
         '''
