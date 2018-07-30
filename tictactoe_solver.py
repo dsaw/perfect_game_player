@@ -16,47 +16,47 @@ def compute_position_heuristic(board,player_token):
 
     if board[0][0]=='x':
         xo_diff+=3
-    else:
+    elif board[0][0]=='o':
         xo_diff-=3
 
     if board[0][2]=='x':
         xo_diff+=3
-    else:
+    elif board[0][2] == 'o':
         xo_diff-=3
 
     if board[2][0]=='x':
         xo_diff+=3
-    else:
+    elif board[2][0] == 'o':
         xo_diff-=3
 
     if board[2][2]=='x':
         xo_diff+=3
-    else:
+    elif board[2][2] == 'o':
         xo_diff-=3
 
     if board[0][1]=='x':
         xo_diff+=1
-    else:
+    elif board[0][1] == 'o':
         xo_diff-=1
 
     if board[2][1]=='x':
         xo_diff+=1
-    else:
+    elif board[2][1] == 'o':
         xo_diff-=1
 
     if board[1][0]=='x':
         xo_diff+=3
-    else:
+    elif board[1][0] == 'o':
         xo_diff-=3
 
     if board[1][2]=='x':
         xo_diff+=3
-    else:
+    elif board[1][2] == 'o':
         xo_diff-=3
 
     if board[1][1]=='x':
         xo_diff+=5
-    else:
+    elif board[1][1] == 'o':
         xo_diff-=5
 
     return xo_diff/10 * 100
