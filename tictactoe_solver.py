@@ -59,8 +59,7 @@ def compute_position_heuristic(board,player_token):
     elif board[1][1] == 'o':
         xo_diff-=5
 
-    return xo_diff/10 * 100
-
+    return xo_diff
 
 def compute_simple_heuristic(board,player_token):
     '''
@@ -114,12 +113,7 @@ def compute_simple_heuristic(board,player_token):
         o_pot_wins += 1
 
 
-    if x_pot_wins == o_pot_wins:
-        return 0
-    elif x_pot_wins > o_pot_wins:
-        return (x_pot_wins - o_pot_wins)/ 6.0 * minimax_tree.PINF
-    else:
-        return (o_pot_wins - x_pot_wins)/ 6.0 * minimax_tree.NINF
+    return (x_pot_wins - o_pot_wins)
 
 
 def win_for_player(board,player_token):
