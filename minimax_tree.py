@@ -110,3 +110,39 @@ def depth_limited_minimax(node,depth,player):
 
 
 # TODO: alpha beta pruning of minimax
+
+def alpha_beta_pruning_minimax(node,player,alpha,beta):
+    '''
+    Minimax variant that maintains max and min value for every node and prunes branches that are unnecessary
+    '''
+
+    if node.if_leaf():
+        return node.evaluate()
+
+
+    if player:
+        possible_moves = node.generate_moves(player)
+        for child in possible_moves:
+            child.value = alpha_beta_pruning_minimax(child,not player,alpha,beta)
+            if child.value > alpha:
+                alpha = child.value
+                node.best_move = child.state
+            if alpha > beta:
+                break
+
+        node.value = alpha
+        logger.debug(" {} == {}".format(node, node.value))
+        return alpha
+
+    else:
+        possible_moves = node.generate_moves(player)
+        for child in possible_moves:
+            child.value = alpha_beta_pruning_minimax(child,not player,alpha,beta)
+            if child.value < beta:
+                beta = child.value
+                node.best_move = child.state
+            if alpha > beta:
+                break
+        node.value = beta
+        logger.debug(" {} == {}".format(node, node.value))
+        return beta

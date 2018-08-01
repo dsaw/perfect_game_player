@@ -8,7 +8,7 @@ import tictactoe_solver
 
 class TestTicTacToe(unittest.TestCase):
 
-    DEPTH = 6
+    DEPTH = 5
 
     def setUp(self):
         root_board = [['.'] * 3 for _ in range(3)]
@@ -84,6 +84,22 @@ class TestTicTacToe(unittest.TestCase):
         self.logger.info('Minimax depth {} \tTime elapsed: {}'.format(self.DEPTH, end - start))
         self.assertEqual(val, 0,msg="Result is not a draw")
         print(val)
+
+
+    def test_alpha_beta_minimax(self):
+        '''
+        Tests alpha beta pruning algorithm
+        :return:
+        '''
+        start = time.time()
+        val = minimax_tree.alpha_beta_pruning_minimax(self.node, True, minimax_tree.NINF, minimax_tree.PINF)
+        end = time.time()
+        self.logger.info('\t:Alpha Beta pruning: \tTime elapsed: {}'.format( end - start))
+        self.assertEqual(val, 0, msg="Result is not a draw")
+        print(val)
+
+
+
 
     def test_evaluate(self):
         '''
