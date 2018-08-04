@@ -4,6 +4,7 @@ import logging.config
 import time
 import minimax_tree
 import tictactoe_solver
+from tictactoe_solver import TicTacToeNode
 
 
 class TestTicTacToe(unittest.TestCase):
@@ -99,14 +100,26 @@ class TestTicTacToe(unittest.TestCase):
         print(val)
 
 
-
-
     def test_evaluate(self):
         '''
         Test if node value is None as it is not leaf
         '''
 
         self.assertEqual(self.node.evaluate(),0)
+
+    def test_common_board_positions(self):
+        '''
+        Test various board positions
+        :return:
+        '''
+
+        last_move_board = TicTacToeNode([['o','x',' o'],['x','.','o'],['.','.','x']])
+        final_val_for_alphbeta = minimax_tree.alpha_beta_pruning_minimax(last_move_board,True,minimax_tree.NINF,minimax_tree.PINF)
+
+        self.assertEqual( final_val_for_alphbeta,
+                          minimax_tree.PINF)
+
+        self.assertEqual( minimax_tree.minimax(last_move_board, True)[1], minimax_tree.PINF)
 
 
 if __name__ == '__main__':
