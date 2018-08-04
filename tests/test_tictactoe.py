@@ -68,8 +68,8 @@ class TestTicTacToe(unittest.TestCase):
         board1 = [['o','x',' .'],['x','o','x'],['.','.','.']]
         board2 = [['x','.',' .'],['.','o','o'],['x','.','x']]
 
-        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board1,True),-16, delta=1)
-        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board2,True),16,delta=1)
+        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board1,True),-1, delta=1)
+        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board2,True),1,delta=1)
 
     def test_minimax_depth_limited(self):
         '''
