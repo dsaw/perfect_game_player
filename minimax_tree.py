@@ -146,3 +146,4 @@ def alpha_beta_pruning_minimax(node,player,alpha,beta):
         node.value = beta
         logger.debug(" {} == {}".format(node, node.value))
         return beta
+

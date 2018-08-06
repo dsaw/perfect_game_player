@@ -121,6 +121,20 @@ class TestTicTacToe(unittest.TestCase):
 
         self.assertEqual( minimax_tree.minimax(last_move_board, True)[1], minimax_tree.PINF)
 
+    def test_next_move_of_board(self):
+        '''
+        Test next move of board
+        :return:
+        '''
+
+        move_board = TicTacToeNode([['o','x','x'],['x','o','o'],['.','.','.']])
+
+        (next_move,_) = minimax_tree.minimax(move_board,True)
+
+        self.assertEqual(next_move, [['o','x','x'],['x','o','o'],['.','.','x']])
+
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
