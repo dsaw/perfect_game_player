@@ -70,7 +70,7 @@ def minimax(node,player):
 
         return (node.best_move, minv)
 
-
+# TODO: refactor to return next move too
 def depth_limited_minimax(node,depth,player):
     '''
     Minimax algorithm that returns after a particular depth is reached
@@ -108,8 +108,7 @@ def depth_limited_minimax(node,depth,player):
         logger.debug("{} == {}".format(node, node.value))
         return minv
 
-
-# TODO: alpha beta pruning of minimax
+# alpha beta pruning takes a while
 
 def alpha_beta_pruning_minimax(node,player,alpha,beta):
     '''

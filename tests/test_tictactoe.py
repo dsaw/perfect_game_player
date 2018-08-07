@@ -128,11 +128,12 @@ class TestTicTacToe(unittest.TestCase):
         '''
 
         move_board = TicTacToeNode([['o','x','x'],['x','o','o'],['.','.','.']])
-
+        a_forced_draw_board = TicTacToeNode([['.','x','.'],['.','x','.'],['.','.','o']])
         (next_move,_) = minimax_tree.minimax(move_board,True)
+        (next_move2, _) = minimax_tree.minimax(a_forced_draw_board, False)
 
         self.assertEqual(next_move, [['o','x','x'],['x','o','o'],['.','.','x']])
-
+        self.assertEqual(next_move2,[['.','x','.'],['.','x','.'],['.','o','o']])
 
 
 
