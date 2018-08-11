@@ -1,3 +1,4 @@
+import copy
 import minimax_tree
 
 
@@ -43,6 +44,9 @@ class Connect4Node(minimax_tree.Node):
         :param board: 3x3 character array with 'x','o' and '.'
     '''
 
+
+    heuristic = None
+
     def __init__(self,board):
         self.state = board
         self.player = True
@@ -59,3 +63,41 @@ class Connect4Node(minimax_tree.Node):
             return False
 
         return True
+
+
+    def generate_moves(self,player):
+        '''
+        Generate possible moves for next player
+        :return:
+        '''
+
+        curboard = copy.copy(self.state)
+
+        next_state = []
+        player = 'y' if player else 'r'
+
+        for c in range(7):
+            for r in range(6):
+                if self.state[r][c] !=  '.':
+                    newnode = Connect4Node(copy.deepcopy(self.state))
+                    newnode.state[r][c] = player  # not following encapsulation
+                    next_state.append(newnode)
+        return next_state
+
+
+    def evaluate(self):
+        ''' Set value of board. If its not a win, loss or a draw then heuristic is evaluated.
+
+        '''
+        if win_for_player(self.state, 'x'):
+            self.value = minimax_tree.PINF
+        elif win_for_player(self.state,'o'):
+            self.value = minimax_tree.NINF
+        elif not any('.' in row for row in self.state):
+            self.value = 0
+        else:
+            self.value = Connect4Node.heuristic(self.state,self.player)
+
+        # Connect 4 heuristic
+        return self.value
+
