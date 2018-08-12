@@ -26,6 +26,29 @@ def count_two_in_row(board,player_token):
 
     return count
 
+def count_three_in_row(board,player_token):
+    '''
+
+    :param board:
+    :param player_token: string token
+    :return:
+    '''
+    count = 0
+
+    for r in range(6):
+        for c in range(7):
+            if r <= 3 and board[r][c] == board[r+1][c] == board[r+2][c] == player_token:
+                count += 1
+            if c <= 4 and board[r][c] == board[r][c+1] == board[r][c+2] ==  player_token:
+                count += 1
+            if  r <= 3  and c <= 4 and board[r][c] == board[r+1][c+1] == board[r+2][c+2]  == player_token:
+                count += 1
+            if  r >= 2 and c <= 4 and board[r][c] == board[r-1][c+1] ==  board[r-2][c+2] == player_token:
+                count += 1
+
+    return count
+
+
 def connect_4_position_heuristic(board,player_token):
     '''
 
