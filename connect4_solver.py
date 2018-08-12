@@ -4,6 +4,39 @@ import minimax_tree
 
 # Runs minimax on Connect 4 game
 
+def count_two_in_row(board,player_token):
+    '''
+
+    :param board:
+    :param player_token: string token
+    :return:
+    '''
+    count = 0
+
+    for r in range(6):
+        for c in range(7):
+            if r <= 4 and board[r][c] == board[r+1][c] == player_token:
+                count += 1
+            if c <= 5 and board[r][c] == board[r][c+1] == player_token:
+                count += 1
+            if  r <= 4  and c <= 5 and board[r][c] == board[r+1][c+1] == player_token:
+                count += 1
+            if  r >= 1 and c <= 5 and board[r][c] == board[r-1][c+1] == player_token:
+                count += 1
+
+    return count
+
+def connect_4_position_heuristic(board,player_token):
+    '''
+
+    :param board:
+    :param player_token:
+    :return:
+    '''
+
+    ry_diff = 0
+
+
 
 def win_for_player(board,player_token):
     """
