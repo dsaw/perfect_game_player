@@ -58,6 +58,11 @@ def connect_4_position_heuristic(board,player_token):
     '''
 
     ry_diff = 0
+    ry_diff += count_two_in_row(board,'y') + count_three_in_row(board,'y')
+    ry_diff += count_two_in_row(board,'r') + count_three_in_row(board,'r')
+    return  ry_diff
+
+
 
 
 
