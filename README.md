@@ -8,17 +8,6 @@ Currently tested on tic tac toe game . A connect 4 implementation is given.
 
 ## Installation
 
-OS X & Linux:
-
-```sh
-python setup.py install
-```
-
-Windows:
-
-```sh
-edit autoexec.bat
-```
 
 ## Usage example
 
