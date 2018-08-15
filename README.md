@@ -3,7 +3,28 @@
 
 
 It will generate next moves to board positions. Minimax tree algorithm is used to choose the best move at each turn. It can be used as a library for your board game needs.
-Tested on tic tac toe game currently.
+Currently tested on tic tac toe game . A connect 4 implementation is given.
+
+
+## Installation
+
+OS X & Linux:
+
+```sh
+python setup.py install
+```
+
+Windows:
+
+```sh
+edit autoexec.bat
+```
+
+## Usage example
+
+
+
+
 
 ## Meta
 
