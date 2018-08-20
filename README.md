@@ -3,7 +3,7 @@
 
 
 It will generate next moves to board positions. Minimax tree algorithm is used to choose the best move at each turn. It can be used as a library for your board game needs.
-Currently tested on tic tac toe game . A connect 4 implementation is given.
+Currently tested on tic tac toe game . A connect 4 implementation is given too.
 
 
 ## Installation
@@ -13,6 +13,11 @@ Currently tested on tic tac toe game . A connect 4 implementation is given.
 
 
 
+## TODO
+* Add different games to run on i.e. Gomoku, Nim
+* Method to visualise algorithm on XO
+* Interactive Human v Bot game.
+* Or any other ideas of your own.
 
 
 ## Meta
