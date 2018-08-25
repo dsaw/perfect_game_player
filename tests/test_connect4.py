@@ -58,11 +58,12 @@ class TestConnect4(unittest.TestCase):
                  ['y', '.', 'y', 'y', 'y', 'r', 'r'],
                  ['y', '.', 'r', 'y', 'r', 'y', 'r']
                  ]
-        self.assertGreater(connect_4_position_heuristic(board,'r'),0)
+        self.assertLess(connect_4_position_heuristic(board),0)
 
     def test_minimax(self):
-         best_move,final_val = minimax_tree.minimax(self.main_node,True)
-         self.assertEqual(final_val, minimax_tree.PINF)
+         final_val = minimax_tree.depth_limited_minimax(self.main_node,4,True)
+         print(final_val)
+         self.assertGreater(final_val, 0)
 
 
 

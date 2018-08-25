@@ -4,6 +4,10 @@ import minimax_tree
 
 # Runs minimax on Connect 4 game
 
+# Yellow is the starting player
+
+# PINF is +100
+
 def count_two_in_row(board,player_token):
     '''
 
@@ -49,7 +53,7 @@ def count_three_in_row(board,player_token):
     return count
 
 
-def connect_4_position_heuristic(board,player_token):
+def connect_4_position_heuristic(board):
     '''
 
     :param board:
@@ -58,8 +62,8 @@ def connect_4_position_heuristic(board,player_token):
     '''
 
     ry_diff = 0
-    ry_diff += count_two_in_row(board,'y') + count_three_in_row(board,'y')
-    ry_diff += count_two_in_row(board,'r') + count_three_in_row(board,'r')
+    ry_diff += count_three_in_row(board,'y')
+    ry_diff += -count_three_in_row(board,'r')
     return  ry_diff
 
 
@@ -106,7 +110,7 @@ class Connect4Node(minimax_tree.Node):
     '''
 
 
-    heuristic = None
+    heuristic = connect_4_position_heuristic
 
     def __init__(self,board):
         self.state = board
@@ -157,7 +161,7 @@ class Connect4Node(minimax_tree.Node):
         elif not any('.' in row for row in self.state):
             self.value = 0
         else:
-            self.value = Connect4Node.heuristic(self.state,self.player)
+            self.value = Connect4Node.heuristic(self.state)
 
         # Connect 4 heuristic
         return self.value
