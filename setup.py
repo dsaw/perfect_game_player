@@ -9,7 +9,5 @@ setup(name='Perfect game player',
       author_email='devesh47cool@gmail.com',
       license='GPLv3',
       install_requires=[],
-      test_suite='nose.collector',
-      tests_require=['nose'],
       zip_safe=False
 )
