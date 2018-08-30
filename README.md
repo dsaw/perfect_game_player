@@ -18,6 +18,17 @@ Of course, the variants give approximate solutions. Two heuristics were tried ou
 
 ## Installation
 
+The straightforward way is to clone the git repo.
+
+```
+git clone https://github.com/dsaw/perfect-game-player.git
+```
+go to the directory and install it using setup.py
+
+```
+python setup.py install
+```
+
 
 ## Usage example
 To use minimax, import and just pass in the board.
