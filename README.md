@@ -6,7 +6,7 @@
 It will generate the best next move to the  given board position. Minimax tree algorithm is used to choose the best move at each turn. It can be used as a library for your board game needs. You just have to create a new file for that game and subclass the main classes. 
 
 ## Analysis
-I have tested this on tic tac toe game, which was simple enough for brute force minimax. A connect 4 implementation is given too.
+I have tested this on tic tac toe game, which is simple enough for brute force minimax. A Connect 4 implementation is given too.
 
 Function  |  Time
 --------  |  ----
