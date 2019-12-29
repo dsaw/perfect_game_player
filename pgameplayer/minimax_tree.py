@@ -1,12 +1,10 @@
-
 import logging
 
 logger = logging.getLogger("minimax")
 # Straightforward minimax tree algorithm
 
-PINF  = 100
+PINF = 100
 NINF = -100
-
 
 
 class Node:
@@ -34,20 +32,20 @@ class Node:
         return str
 
 
-def minimax(node,player):
+def minimax(node, player):
     '''
     Main minimax function that obtains the best move to take
     :return:
     '''
 
     if node.if_leaf():
-        return ([],node.evaluate())
+        return ([], node.evaluate())
 
     if player:
         maxv = NINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            (_,child.value) = minimax(child,not player)
+            (_, child.value) = minimax(child, not player)
             if child.value > maxv:
                 maxv = child.value
                 node.best_move = child.state
@@ -55,13 +53,13 @@ def minimax(node,player):
         node.value = maxv
         logger.debug("{} == {}".format(node.state, node.value))
 
-        return (node.best_move,maxv)
+        return (node.best_move, maxv)
 
     else:
         minv = PINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            (_, child.value) = minimax(child,not player)
+            (_, child.value) = minimax(child, not player)
             if child.value < minv:
                 minv = child.value
                 node.best_move = child.state
@@ -70,8 +68,9 @@ def minimax(node,player):
 
         return (node.best_move, minv)
 
+
 # TODO: refactor to return next move too
-def depth_limited_minimax(node,depth,player):
+def depth_limited_minimax(node, depth, player):
     '''
     Minimax algorithm that returns after a particular depth is reached
     :param node:
@@ -79,14 +78,14 @@ def depth_limited_minimax(node,depth,player):
     :param player:
     :return:
     '''
-    if node.if_leaf() or depth==0:
+    if node.if_leaf() or depth == 0:
         return node.evaluate()
 
     if player:
         maxv = NINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = depth_limited_minimax(child,depth-1,not player)
+            child.value = depth_limited_minimax(child, depth - 1, not player)
             if child.value > maxv:
                 maxv = child.value
                 node.best_move = child.state
@@ -99,7 +98,7 @@ def depth_limited_minimax(node,depth,player):
         minv = PINF
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = depth_limited_minimax(child,depth-1,not player)
+            child.value = depth_limited_minimax(child, depth - 1, not player)
             if child.value < minv:
                 minv = child.value
                 node.best_move = child.state
@@ -108,9 +107,10 @@ def depth_limited_minimax(node,depth,player):
         logger.debug("{} == {}".format(node, node.value))
         return minv
 
+
 # alpha beta pruning takes a while
 
-def alpha_beta_pruning_minimax(node,player,alpha,beta):
+def alpha_beta_pruning_minimax(node, player, alpha, beta):
     '''
     Minimax variant that maintains max and min value for every node and prunes branches that are unnecessary
     '''
@@ -118,11 +118,10 @@ def alpha_beta_pruning_minimax(node,player,alpha,beta):
     if node.if_leaf():
         return node.evaluate()
 
-
     if player:
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = alpha_beta_pruning_minimax(child,not player,alpha,beta)
+            child.value = alpha_beta_pruning_minimax(child, not player, alpha, beta)
             if child.value > alpha:
                 alpha = child.value
                 node.best_move = child.state
@@ -136,7 +135,7 @@ def alpha_beta_pruning_minimax(node,player,alpha,beta):
     else:
         possible_moves = node.generate_moves(player)
         for child in possible_moves:
-            child.value = alpha_beta_pruning_minimax(child,not player,alpha,beta)
+            child.value = alpha_beta_pruning_minimax(child, not player, alpha, beta)
             if child.value < beta:
                 beta = child.value
                 node.best_move = child.state
@@ -145,4 +144,3 @@ def alpha_beta_pruning_minimax(node,player,alpha,beta):
         node.value = beta
         logger.debug(" {} == {}".format(node, node.value))
         return beta
-

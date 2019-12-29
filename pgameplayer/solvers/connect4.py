@@ -1,5 +1,5 @@
 import copy
-import minimax_tree
+from pgameplayer import minimax_tree
 
 
 # Runs minimax on Connect 4 game
@@ -8,7 +8,7 @@ import minimax_tree
 
 # PINF is +100
 
-def count_two_in_row(board,player_token):
+def count_two_in_row(board, player_token):
     '''
 
     :param board:
@@ -19,18 +19,19 @@ def count_two_in_row(board,player_token):
 
     for r in range(6):
         for c in range(7):
-            if r <= 4 and board[r][c] == board[r+1][c] == player_token:
+            if r <= 4 and board[r][c] == board[r + 1][c] == player_token:
                 count += 1
-            if c <= 5 and board[r][c] == board[r][c+1] == player_token:
+            if c <= 5 and board[r][c] == board[r][c + 1] == player_token:
                 count += 1
-            if  r <= 4  and c <= 5 and board[r][c] == board[r+1][c+1] == player_token:
+            if r <= 4 and c <= 5 and board[r][c] == board[r + 1][c + 1] == player_token:
                 count += 1
-            if  r >= 1 and c <= 5 and board[r][c] == board[r-1][c+1] == player_token:
+            if r >= 1 and c <= 5 and board[r][c] == board[r - 1][c + 1] == player_token:
                 count += 1
 
     return count
 
-def count_three_in_row(board,player_token):
+
+def count_three_in_row(board, player_token):
     '''
 
     :param board:
@@ -41,13 +42,13 @@ def count_three_in_row(board,player_token):
 
     for r in range(6):
         for c in range(7):
-            if r <= 3 and board[r][c] == board[r+1][c] == board[r+2][c] == player_token:
+            if r <= 3 and board[r][c] == board[r + 1][c] == board[r + 2][c] == player_token:
                 count += 1
-            if c <= 4 and board[r][c] == board[r][c+1] == board[r][c+2] ==  player_token:
+            if c <= 4 and board[r][c] == board[r][c + 1] == board[r][c + 2] == player_token:
                 count += 1
-            if  r <= 3  and c <= 4 and board[r][c] == board[r+1][c+1] == board[r+2][c+2]  == player_token:
+            if r <= 3 and c <= 4 and board[r][c] == board[r + 1][c + 1] == board[r + 2][c + 2] == player_token:
                 count += 1
-            if  r >= 2 and c <= 4 and board[r][c] == board[r-1][c+1] ==  board[r-2][c+2] == player_token:
+            if r >= 2 and c <= 4 and board[r][c] == board[r - 1][c + 1] == board[r - 2][c + 2] == player_token:
                 count += 1
 
     return count
@@ -62,15 +63,12 @@ def connect_4_position_heuristic(board):
     '''
 
     ry_diff = 0
-    ry_diff += count_three_in_row(board,'y')
-    ry_diff += -count_three_in_row(board,'r')
-    return  ry_diff
+    ry_diff += count_three_in_row(board, 'y')
+    ry_diff += -count_three_in_row(board, 'r')
+    return ry_diff
 
 
-
-
-
-def win_for_player(board,player_token):
+def win_for_player(board, player_token):
     """
     Four in a row, column or a diagonal
     :param board:
@@ -96,10 +94,9 @@ def win_for_player(board,player_token):
                     return True
 
             if board[r][c] == player_token and c <= 3 and r >= 3:
-                if board[r -1][c + 1] == board[r - 2][c + 2] == board[r - 3][c + 3] == player_token:
+                if board[r - 1][c + 1] == board[r - 2][c + 2] == board[r - 3][c + 3] == player_token:
                     # up diagonal
                     return True
-
 
     return False
 
@@ -109,19 +106,16 @@ class Connect4Node(minimax_tree.Node):
         :param board: 3x3 character array with 'x','o' and '.'
     '''
 
-
     heuristic = connect_4_position_heuristic
 
-    def __init__(self,board):
+    def __init__(self, board):
         self.state = board
         self.player = True
         self.value = None
         self.best_move = None
 
-
-
     def if_leaf(self):
-        if win_for_player(self.state,'r') or win_for_player(self.state,'y'):
+        if win_for_player(self.state, 'r') or win_for_player(self.state, 'y'):
             return True
 
         if any('.' in row for row in self.state):
@@ -129,8 +123,7 @@ class Connect4Node(minimax_tree.Node):
 
         return True
 
-
-    def generate_moves(self,player):
+    def generate_moves(self, player):
         '''
         Generate possible moves for next player
         :return:
@@ -143,12 +136,11 @@ class Connect4Node(minimax_tree.Node):
 
         for c in range(7):
             for r in range(6):
-                if self.state[r][c] !=  '.':
+                if self.state[r][c] != '.':
                     newnode = Connect4Node(copy.deepcopy(self.state))
                     newnode.state[r][c] = player  # not following encapsulation
                     next_state.append(newnode)
         return next_state
-
 
     def evaluate(self):
         ''' Set value of board. If its not a win, loss or a draw then heuristic is evaluated.
@@ -156,7 +148,7 @@ class Connect4Node(minimax_tree.Node):
         '''
         if win_for_player(self.state, 'x'):
             self.value = minimax_tree.PINF
-        elif win_for_player(self.state,'o'):
+        elif win_for_player(self.state, 'o'):
             self.value = minimax_tree.NINF
         elif not any('.' in row for row in self.state):
             self.value = 0
@@ -165,4 +157,3 @@ class Connect4Node(minimax_tree.Node):
 
         # Connect 4 heuristic
         return self.value
-

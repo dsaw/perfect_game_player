@@ -1,6 +1,6 @@
 import unittest
 
-import minimax_tree
+from pgameplayer import minimax_tree
 
 
 class TestMinimaxDS(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestMinimaxDS(unittest.TestCase):
         '''
         self.node.state = [['o','x'],['.','.']]
 
-        return_args = minimax_tree.minimax(self.node,True)
+        return_args = minimax_tree.minimax(self.node, True)
 
         self.assertIsInstance(return_args,tuple)
         self.assertTupleEqual(return_args,([],None))

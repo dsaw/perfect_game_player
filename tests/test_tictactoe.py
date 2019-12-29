@@ -2,9 +2,9 @@ import unittest
 import logging
 import logging.config
 import time
-import minimax_tree
-import tictactoe_solver
-from tictactoe_solver import TicTacToeNode
+from pgameplayer import minimax_tree
+from pgameplayer.solvers import tictactoe
+from pgameplayer.solvers.tictactoe import TicTacToeNode
 
 
 class TestTicTacToe(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestTicTacToe(unittest.TestCase):
 
     def setUp(self):
         root_board = [['.'] * 3 for _ in range(3)]
-        self.node = tictactoe_solver.TicTacToeNode(root_board)
+        self.node = tictactoe.TicTacToeNode(root_board)
 
         self.logger = logging.getLogger("minimax")
         self.logger.setLevel(logging.DEBUG)
@@ -69,8 +69,8 @@ class TestTicTacToe(unittest.TestCase):
         board1 = [['o','x',' .'],['x','o','x'],['.','.','.']]
         board2 = [['x','.',' .'],['.','o','o'],['x','.','x']]
 
-        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board1,True),-1, delta=1)
-        self.assertAlmostEqual(tictactoe_solver.compute_simple_heuristic(board2,True),1,delta=1)
+        self.assertAlmostEqual(tictactoe.compute_simple_heuristic(board1, True), -1, delta=1)
+        self.assertAlmostEqual(tictactoe.compute_simple_heuristic(board2, True), 1, delta=1)
 
     def test_minimax_depth_limited(self):
         '''
@@ -114,12 +114,13 @@ class TestTicTacToe(unittest.TestCase):
         '''
 
         last_move_board = TicTacToeNode([['o','x',' o'],['x','.','o'],['.','.','x']])
-        final_val_for_alphbeta = minimax_tree.alpha_beta_pruning_minimax(last_move_board,True,minimax_tree.NINF,minimax_tree.PINF)
+        final_val_for_alphbeta = minimax_tree.alpha_beta_pruning_minimax(last_move_board, True, minimax_tree.NINF,
+                                                                         minimax_tree.PINF)
 
-        self.assertEqual( final_val_for_alphbeta,
-                          minimax_tree.PINF)
+        self.assertEqual(final_val_for_alphbeta,
+                         minimax_tree.PINF)
 
-        self.assertEqual( minimax_tree.minimax(last_move_board, True)[1], minimax_tree.PINF)
+        self.assertEqual(minimax_tree.minimax(last_move_board, True)[1], minimax_tree.PINF)
 
     def test_next_move_of_board(self):
         '''
@@ -129,7 +130,7 @@ class TestTicTacToe(unittest.TestCase):
 
         move_board = TicTacToeNode([['o','x','x'],['x','o','o'],['.','.','.']])
         a_forced_draw_board = TicTacToeNode([['.','x','.'],['.','x','.'],['.','.','o']])
-        (next_move,_) = minimax_tree.minimax(move_board,True)
+        (next_move,_) = minimax_tree.minimax(move_board, True)
         (next_move2, _) = minimax_tree.minimax(a_forced_draw_board, False)
 
         self.assertEqual(next_move, [['o','x','x'],['x','o','o'],['.','.','x']])

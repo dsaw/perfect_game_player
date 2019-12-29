@@ -1,4 +1,4 @@
-import minimax_tree
+from pgameplayer import minimax_tree
 import copy
 
 # Making use of Minimax tree algorithm to solve board states of Tic Tac Toe

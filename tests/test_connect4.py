@@ -1,5 +1,5 @@
 import unittest
-from connect4_solver import *
+from pgameplayer.solvers.connect4 import *
 
 class TestConnect4(unittest.TestCase):
 
@@ -61,7 +61,7 @@ class TestConnect4(unittest.TestCase):
         self.assertLess(connect_4_position_heuristic(board),0)
 
     def test_minimax(self):
-         final_val = minimax_tree.depth_limited_minimax(self.main_node,4,True)
+         final_val = minimax_tree.depth_limited_minimax(self.main_node, 4, True)
          print(final_val)
          self.assertGreater(final_val, 0)
 

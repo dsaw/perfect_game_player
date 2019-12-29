@@ -19,34 +19,48 @@ Of course, the variants give approximate solutions. Two heuristics were tried ou
 
 ## Installation
 
-The straightforward way is to clone the git repo.
+Clone the git repo.
 
 ```
 git clone https://github.com/dsaw/perfect-game-player.git
 ```
-go to the directory and install it using setup.py
+Go to the directory and install it the standard way
 
 ```
 python setup.py install
 ```
 
+Or installing locally is fine (needs pip)
+```
+pip install .
+```
 
 ## Usage example
-To use minimax, import and just pass in the board.
+The minimax tree can be used for testing and learning purposes. 
+It is abstract in itself, so to use it in a game a separate solver needs to be written.
+Currently, we have `connect4` and `tictactoe` as wrappers for this.
 ```
-from minimax_tree import *
-start_board = [['.','.','.'],['.','.','.'],['.','.','.']]
-ret = minimax(start_board,true)  # true for first player
+from pgameplayer.minimax_tree import *
+from pgameplayer.solvers import *
+
+start_board = tictactoe.TicTacToeNode([['.','.','.'],['.','.','.'],['.','.','.']])
+
+ret = minimax(start_board,True)  # True if first player moves
 ```
 
-This is the brute force minimax. There is a depth limited version and alpha beta pruning one too.
+The above is the brute force minimax. 
+There is a depth limited version which takes the depth till which the best move will be calculated
+```
+ret = depth_limited_minimax(start_board,3,True)  # depth is 3
+```
+Another version is alpha beta pruning where unnecessary branches whose 
+win' value is outside the range are pruned.
 
 ```
-ret = depth_limited_minimax(start_board,3,true)  # depth is 3
-ret = alpha_beta_pruning_minimax(start_board,NINF,PINF,true)  # alpha is negative infinity & beta is positive infinity
+ret = alpha_beta_pruning_minimax(start_board,NINF,PINF,True)  # alpha is negative infinity & beta is positive infinity
 ```
 
-The brute force minimax returns a tuple containing the best next board position and the position value.
+The minimax functions returns a tuple containing the best next board position and the position value.
 
 ```
 print(ret[0])  # [['.','.','.'],['.','x','.'],['.','.','.']]
@@ -56,8 +70,9 @@ print(ret[1])  # Tic tac toe is a draw given perfect play
  To make use of minimax on a game, your code needs to subclass `Node` and implement its functions.
  Take a look at the [code](https://github.com/dsaw/perfect-game-player/blob/master/tictactoe_solver.py) for details.
 
-
-
+## Testing
+Unit tests can be run with
+```python setup.py test```
 
 ## TODO
 * Add different games to run on i.e. Gomoku, Nim
