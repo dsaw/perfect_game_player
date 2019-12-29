@@ -1,7 +1,7 @@
 # Perfect Game Player
 > Predicts best move in board games using minimax algorithm.
 
- [![Build Status][travis-image]][travis-url]
+ [![Build Status](https://travis-ci.org/dsaw/perfect_game_player.svg?branch=master)](https://travis-ci.org/dsaw/perfect_game_player)
 
 It will generate the best next move to the  given board position. Minimax tree algorithm is used to choose the best move at each turn. It can be used as a library for your board game needs. You just have to create a new file for that game and subclass the main classes. 
 
